@@ -1,0 +1,57 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Flask related
+instance/
+.env
+*.env
+
+# YOLOv9 / PyTorch
+*.pt
+*.weights
+runs/
+exp*/           # YOLO output folders
+results/        # If you have any output folder
+
+# Jupyter notebooks
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Python virtual environments
+venv/
+env/
+.venv/
+
+# Logs and cache
+*.log
+*.pickle
+*.pkl
+.cache/
+__pycache__/
+*.sqlite3
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# System files
+Thumbs.db
+uploads/
+
+Flicker8k_Dataset/
+Flickr8k_text/
+TestImages/
+.idea/
+
+descriptions.txt
+features.p
+tokenizer.p
+
