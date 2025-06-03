@@ -10,3 +10,5 @@ torch
 torchvision
 transformers
 pillow
+torchaudio
+
