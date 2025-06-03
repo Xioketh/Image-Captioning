@@ -264,11 +264,8 @@ steps_per_epoch = 10
 print("------------------im here3--------------")
 
 
-os.mkdir('models')
+os.makedirs('models', exist_ok=True)
 print("1111111111111111111111")
-
-with tf.device('/GPU:0'):
-    for i in range(epochs):
-        dataset = data_generator(train_descriptions, train_features, tokenizer, max_length)
-        model.fit(dataset, epochs=epochs, steps_per_epoch=steps_per_epoch, verbose=1)
-        model.save('models/model_'+str(i)+'.h5')
+for i in range(epochs):
+    model.fit(dataset, epochs=epochs, steps_per_epoch=steps_per_epoch, verbose=1)
+    model.save(f'models/model_{i}.h5')

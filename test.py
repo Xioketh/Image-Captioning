@@ -95,7 +95,7 @@ tokenizer = load(open('tokenizer.p', 'rb'))
 vocab_size = len(tokenizer.word_index) + 1
 
 model =  define_model(vocab_size, max_length)
-model.load_weights("models/model_34.h5")
+model.load_weights("models/model_99.h5")
 xception_model =  Xception(include_top=False, pooling='avg')
 
 photo =  extract_features(img_path, xception_model)
@@ -112,6 +112,5 @@ print("--------------------------------------------")
 # print(tokenizer.index_word[1:10])
 
 
-
-description = genrate_desc(model, tokenizer, photo, max_length)
+description = genrate_desc(model, tokenizer, photo, max_length).replace("start", "").replace("end", "").strip()
 print(description)
