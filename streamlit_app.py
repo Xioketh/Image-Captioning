@@ -81,7 +81,7 @@ if uploaded_file:
     # Load models
     xception_model = Xception(include_top=False, pooling='avg')
     caption_model = define_model(vocab_size, max_length)
-    caption_model.load_weights("models/model_34.h5")
+    caption_model.load_weights("models/model_99.h5")
 
     # Extract features and generate caption
     photo = extract_features(image, xception_model)
