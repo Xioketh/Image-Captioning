@@ -4,12 +4,24 @@ import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration
 import cloudinary
 import cloudinary.uploader
+from io import BytesIO
 
 cloudinary.config(
     cloud_name=st.secrets["CLOUDINARY"]["cloud_name"],
     api_key=st.secrets["CLOUDINARY"]["api_key"],
     api_secret=st.secrets["CLOUDINARY"]["api_secret"]
 )
+
+
+def compress_image(image_file, max_size=(1024, 1024)):
+    image = Image.open(image_file)
+    image.thumbnail(max_size)
+
+    buffer = BytesIO()
+    image.save(buffer, format="JPEG", quality=85)
+    buffer.seek(0)
+
+    return buffer
 
 def upload_to_cloudinary(file, filename):
     result = cloudinary.uploader.upload(file, public_id=filename, resource_type="image")
@@ -29,7 +41,8 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 if uploaded_file:
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
-    cloudinary_url = upload_to_cloudinary(uploaded_file, uploaded_file.name)
+    compressed_image = compress_image(uploaded_file)
+    cloudinary_url = upload_to_cloudinary(compressed_image, uploaded_file.name)
 
     processor, model = load_model()
 
