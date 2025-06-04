@@ -12,3 +12,4 @@ transformers
 pillow
 torchaudio
 
+cloudinary

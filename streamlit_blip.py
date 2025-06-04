@@ -2,6 +2,18 @@ import streamlit as st
 from PIL import Image
 import torch
 from transformers import BlipProcessor, BlipForConditionalGeneration
+import cloudinary
+import cloudinary.uploader
+
+cloudinary.config(
+    cloud_name=st.secrets["CLOUDINARY"]["cloud_name"],
+    api_key=st.secrets["CLOUDINARY"]["api_key"],
+    api_secret=st.secrets["CLOUDINARY"]["api_secret"]
+)
+
+def upload_to_cloudinary(file, filename):
+    result = cloudinary.uploader.upload(file, public_id=filename, resource_type="image")
+    return result["secure_url"]
 
 # Load BLIP model
 @st.cache_resource
@@ -17,6 +29,7 @@ uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png
 
 if uploaded_file:
     st.image(uploaded_file, caption="Uploaded Image", use_column_width=True)
+    cloudinary_url = upload_to_cloudinary(uploaded_file, uploaded_file.name)
 
     processor, model = load_model()
 

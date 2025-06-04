@@ -8,6 +8,11 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Dense, LSTM, Embedding, Dropout, add
 import tensorflow as tf
 
+
+def upload_to_cloudinary(file, filename):
+    result = cloudinary.uploader.upload(file, public_id=filename, resource_type="image")
+    return result["secure_url"]
+
 # ---------------- Utility Functions ---------------- #
 def extract_features(image, model):
     image = image.resize((299, 299)).convert('RGB')
